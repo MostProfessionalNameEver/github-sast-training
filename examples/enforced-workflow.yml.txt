@@ -1,0 +1,26 @@
+# EXAMPLE ONLY. Replace .github/workflows/sast.yml with this content
+# when you're ready for phase 2. This file is not an active workflow here.
+name: SAST Demo
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  security-scan:
+    name: security-scan
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - name: Check out the proposed code
+        uses: actions/checkout@v4
+
+      - name: Scan application code (fail if finding exists)
+        run: semgrep scan --metrics=off --error --config=rules/sast.yml src

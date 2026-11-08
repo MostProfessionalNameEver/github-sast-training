@@ -1,0 +1,8 @@
+rules:
+  - id: python-subprocess-shell-true
+    languages: [python]
+    severity: ERROR
+    message: >-
+      subprocess.run(..., shell=True, ...) invokes a shell and may enable
+      command injection with untrusted input. Use an argument list and shell=False.
+    pattern: subprocess.run(..., shell=True, ...)
